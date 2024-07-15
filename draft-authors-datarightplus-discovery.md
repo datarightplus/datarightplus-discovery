@@ -1,0 +1,171 @@
+%%%
+title = "DataRight+: Discovery"
+area = "Internet"
+workgroup = "datarightplus"
+submissionType = "independent"
+
+[seriesInfo]
+name = "Internet-Draft"
+value = "draft-authors-datarightplus-discovery-latest"
+stream = "independent"
+status = "experimental"
+
+date = 2024-07-15T00:00:00Z
+
+[[author]]
+initials="S."
+surname="Low"
+fullname="Stuart Low"
+organization="Biza.io"
+  [author.address]
+  email = "stuart@biza.io"
+
+%%%
+
+.# Abstract
+
+This specification outlines the technical requirements related to the delivery of the DataRight+ Discovery Document.
+
+.# Notational Conventions
+
+The keywords  "**REQUIRED**", "**SHALL**", "**SHALL NOT**", "**SHOULD**", "**SHOULD NOT**", "**RECOMMENDED**",  "**MAY**", and "**OPTIONAL**" in this document are to be interpreted as described in [@!RFC2119].
+
+{mainmatter}
+
+# Scope
+
+The scope of this specification is focused on describing a discovery document for participants to identify supported functionality at a specific Provider supplied resource server.
+
+# Terms & Definitions
+
+This specification uses the terms "Provider" and "Initiator" as defined by [@!DATARIGHTPLUS-ROSETTA].
+
+# DataRight+ Discovery Metadata
+
+DataRight+ compatible Providers have metadata containing configuration related to the additional services they provide. These DataRight Provider Metadata values are used by participating Initiators.
+
+| Attribute Name | Requirement  | JSON Type | Description                                                       |
+|----------------|--------------|-----------|-------------------------------------------------------------------|
+| `version`      | **REQUIRED** | String    | The discovery document version. Currently only `V1` is supported. |
+| `scheme`       | **REQUIRED** | Object    | Per scheme breakdown of support as outlined in [Scheme Metadata]  |
+
+## Scheme Metadata
+
+Each scheme represents the key value of the metadata. The currently supported schemes are as follows:
+
+1. `cds`: The operations as outlined in Section 3.2 of [@!PROFILE-AUCDR]
+2. `dio`: The operations as outlined in Section 3.2 of [@!PROFILE-AUDIO]
+
+For each participating scheme an JSON object is used incorporating the following fields:
+
+| Attribute Name  | Requirement  | JSON Type    | Description                                                                                                                                                                                |
+|-----------------|--------------|--------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `secureBaseUri` | **OPTIONAL** | String (URI) | The MTLS base uri to use for endpoints requiring Mutual TLS and an OAuth2 token. Where not specified Initiators are to use the authoritative source obtained from the Ecosystem Authority. |
+| `publicBaseUri` | **OPTIONAL** | String (URI) | The TLS base uri to use for endpoints which are classified as unauthenticated.  Where not specified Initiators are to use the authoritative source obtained from the Ecosystem Authority.  |
+| `endpoint`      | **REQUIRED** | Object       | An object containing a per operationId key and breakdown as outlined [Operation Metadata]                                                                                                  |
+
+### Operation Metadata
+
+For each scheme a set of supported endpoints is described whereby the key is the OpenAPI 3 `operationId` and the value is an object containing the following fields:
+
+| Attribute Name     | Requirement     | JSON Type      | Description                                                                                                                                             |
+|--------------------|-----------------|----------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `flags`            | **OPTIONAL**    | Array (Enum)   | List of flags supported by the endpoint as outlined in [Operation Flags]                                                                                |
+| `responseVersions` | **RECOMMENDED** | Array (String) | List of Response Versions supported by the endpoint for the specific operation. The absence of this attribute indicates no supported version available. |                                                                                   |
+| `requestVersions`  | **OPTIONAL**    | Array (String) | List of Request Versions supported by the endpoint for the specific operation                                                                           |                                                                                   |
+
+### Operation Flags
+
+Each operation may have additional flags to indicate certain support for non-payload related capability. The list of supported flags is as follows:
+
+| Flag                      | Requirement  | Description                                                               |
+|---------------------------|--------------|---------------------------------------------------------------------------|
+| `SUPPORTS_CDS_VERSIONING` | **OPTIONAL** | Supports the header based version negotiation as specified within [@!CDS] |
+
+## Non-Normative Example
+
+The following is a non-normative example of a DataRight+ Discovery document:
+
+```json
+{
+  "version": "V1",
+  "scheme": {
+    "cds": {
+      "endpoint": {
+        "listPayees": {
+          "flags": [
+            "SUPPORTS_CDS_VERSIONING"
+          ],
+          "responseVersions": [
+            "V1"
+          ]
+        }
+      }
+    },
+    "dio": {
+      "secureBaseUri": "https://secure-api.acme.bank/dio-au/v1",
+      "endpoint": {
+        "getBankingTransactionDetailListStatus": {
+          "responseVersions": [
+            "V1"
+          ]
+        },
+        "requestBankingTransactionDetailList": {
+          "responseVersions": [
+            "V1"
+          ],
+          "requestVersions": [
+            "V1"
+          ]
+        },
+        "retrieveBankingTransactionDetailList": {
+          "responseVersions": [
+            "V1"
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+# Provider
+
+The Provider **SHALL** make available at the base uri advertised by the Ecosystem Authority for the Provider Brand of `publicBaseUri`, as described further in [@!DATARIGHTPLUS-REDOCLY-ID2] the following endpoint:
+
+| Resource Server Endpoint                     | Valid `x-max-v` |
+|----------------------------------------------|-----------------|
+| `GET /discovery/datarightplus-configuration` | `1`             |
+
+## Maximum Version Support
+
+In order to provide a progressive update mechanism of the metadata itself the Provider:
+
+1. **SHALL** accept a `x-max-v` request header value and use it to provide [DataRight+ Discovery Metadata] equal to or less than the version specified in `version`
+2. **MAY** include in the response an `x-v` header with the same value as the `version` attribute contained within the response payload
+
+# Initiator
+
+The Initiator resource server client **SHALL**:
+
+1. Perform `GET` request to the prescribed endpoint location (i.e. `<publicBaseUri>/discovery/datarightplus-configuration`) and;
+2. Include the `x-max-v` header describing the newest Initiator supported version of the [DataRight+ Discovery Metadata] and;
+3. Parse the response in accordance with [DataRight+ Discovery Metadata]
+
+# Implementation Considerations
+
+For certain schemes, particularly `cdr`, the `publicBaseUri` and `secureBaseUri` values are generally provided by the Ecosystem Authority Directory. If this is the case the value supplied within the discovery document for the relevant scheme **SHOULD** be ignored.
+
+{backmatter}
+
+<reference anchor="CDS" target="https://consumerdatastandardsaustralia.github.io/standards"><front><title>Consumer Data Standards (CDS)</title><author><organization>Data Standards Body (Treasury)</organization></author></front> </reference>
+
+<reference anchor="DATARIGHTPLUS-ROSETTA" target="https://datarightplus.github.io/datarightplus-rosetta/draft-authors-datarightplus-rosetta.html"> <front><title>DataRight+ Rosetta Stone</title><author initials="S." surname="Low" fullname="Stuart Low"><organization>Biza.io</organization></author></front> </reference>
+
+<reference anchor="DATARIGHTPLUS-INFOSEC-BASELINE" target="https://datarightplus.github.io/datarightplus-infosec-baseline/draft-authors-datarightplus-infosec-baseline.html"> <front><title>DataRight+ Security Profile: Baseline</title><author initials="S." surname="Low" fullname="Stuart Low"><organization>Biza.io</organization></author></front> </reference>
+
+<reference anchor="OIDC-Discovery" target="https://openid.net/specs/openid-connect-discovery-1_0.html"> <front> <title>OpenID Connect Discovery 1.0 incorporating errata set 1</title> <author initials="N." surname="Sakimura" fullname="Nat Sakimura"> <organization>NRI</organization> </author> <author initials="J." surname="Bradley" fullname="John Bradley"> <organization>Ping Identity</organization> </author> <author initials="M." surname="Jones" fullname="Mike Jones"> <organization>Microsoft</organization> </author> <author initials="E." surname="Jay"> <organization>Illumila</organization> </author><date day="8" month="Nov" year="2014"/> </front> </reference>
+
+<reference anchor="JWT" target="https://datatracker.ietf.org/doc/html/rfc7519"> <front> <title>JSON Web Token (JWT)</title> <author fullname="M. Jones"> <organization>Microsoft</organization> </author> <author initials="J." surname="Bradley" fullname="John Bradley"> <organization>Ping Identity</organization> </author><author fullname="N. Sakimura"> <organization>Nomura Research Institute</organization> </author> <date month="May" year="2015"/></front> </reference>
+
+
