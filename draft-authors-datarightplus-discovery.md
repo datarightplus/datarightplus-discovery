@@ -53,8 +53,8 @@ DataRight+ compatible Providers have metadata containing configuration related t
 
 Each scheme represents the key value of the metadata. The currently supported schemes are as follows:
 
-1. `cds`: The operations as outlined in Section 3.2 of [@!PROFILE-AUCDR]
-2. `dio`: The operations as outlined in Section 3.2 of [@!PROFILE-AUDIO]
+1. `cds`: The operations as outlined in Section 3.2 of [@!PROFILE-AU-CDR]
+2. `dio`: The operations as outlined in Section 3.2 of [@!PROFILE-AU-DIO]
 
 For each participating scheme an JSON object is used incorporating the following fields:
 
@@ -160,6 +160,10 @@ For certain schemes, particularly `cdr`, the `publicBaseUri` and `secureBaseUri`
 
 <reference anchor="CDS" target="https://consumerdatastandardsaustralia.github.io/standards"><front><title>Consumer Data Standards (CDS)</title><author><organization>Data Standards Body (Treasury)</organization></author></front> </reference>
 
+<reference anchor="PROFILE-AU-CDR" target="https://datarightplus.github.io/datarightplus-cdr-profile/draft-authors-datarightplus-cdr-profile.html"> <front><title>DataRight+: Australian CDR Profile</title><author initials="S." surname="Low" fullname="Stuart Low"><organization>Biza.io</organization></author></front> </reference>
+
+<reference anchor="PROFILE-AU-DIO" target="https://datarightplus.github.io/datarightplus-cdr-profile/draft-authors-datarightplus-dio-profile.html"> <front><title>DataRight+: Australian DataRight+ Profile</title><author initials="S." surname="Low" fullname="Stuart Low"><organization>Biza.io</organization></author></front> </reference>
+
 <reference anchor="DATARIGHTPLUS-ROSETTA" target="https://datarightplus.github.io/datarightplus-rosetta/draft-authors-datarightplus-rosetta.html"> <front><title>DataRight+ Rosetta Stone</title><author initials="S." surname="Low" fullname="Stuart Low"><organization>Biza.io</organization></author></front> </reference>
 
 <reference anchor="DATARIGHTPLUS-INFOSEC-BASELINE" target="https://datarightplus.github.io/datarightplus-infosec-baseline/draft-authors-datarightplus-infosec-baseline.html"> <front><title>DataRight+ Security Profile: Baseline</title><author initials="S." surname="Low" fullname="Stuart Low"><organization>Biza.io</organization></author></front> </reference>
@@ -168,4 +172,6 @@ For certain schemes, particularly `cdr`, the `publicBaseUri` and `secureBaseUri`
 
 <reference anchor="JWT" target="https://datatracker.ietf.org/doc/html/rfc7519"> <front> <title>JSON Web Token (JWT)</title> <author fullname="M. Jones"> <organization>Microsoft</organization> </author> <author initials="J." surname="Bradley" fullname="John Bradley"> <organization>Ping Identity</organization> </author><author fullname="N. Sakimura"> <organization>Nomura Research Institute</organization> </author> <date month="May" year="2015"/></front> </reference>
 
+<reference anchor="DATARIGHTPLUS-REDOCLY-ID2" target="https://datarightplus.github.io/datarightplus-redocly/?v=ID2"> <front><title>DataRight+: Redocly (ID2)</title><author initials="S." surname="Low" fullname="Stuart Low"><organization>Biza.io</organization></author><author initials="B." surname="Kolera" fullname="Ben Kolera"><organization>Biza.io</organization></author>
+<author initials="W." surname="Cai" fullname="Wei Cai"><organization>Biza.io</organization></author></front> </reference>
 
