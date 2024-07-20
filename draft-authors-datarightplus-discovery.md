@@ -66,12 +66,12 @@ For each participating scheme an JSON object is used incorporating the following
 
 For each scheme a set of supported endpoints is described whereby the key is the OpenAPI 3 `operationId` and the value is an object containing the following fields:
 
-| Attribute Name     | Requirement     | JSON Type      | Description                                                                                |
-|--------------------|-----------------|----------------|--------------------------------------------------------------------------------------------|
-| `baseUri`          | **RECOMMENDED** | String (URI)   | The Base URI to use for this endpoint, **REQUIRED** for all schemes except `cds`           |
-| `flags`            | **OPTIONAL**    | Array (Enum)   | List of flags supported by the endpoint as outlined in [Operation Flags](#operation-flags) |
-| `responseVersions` | **REQUIRED**    | Array (String) | List of Response Versions supported by the endpoint for the specific operation.            |
-| `requestVersions`  | **OPTIONAL**    | Array (String) | List of Request Versions supported by the endpoint for the specific operation              |
+| Attribute Name     | Requirement                               | JSON Type      | Description                                                                                |
+|--------------------|-------------------------------------------|----------------|--------------------------------------------------------------------------------------------|
+| `baseUri`          | **REQUIRED** for all schemes except `cds` | String (URI)   | The Base URI to use for this endpoint.                                                     |
+| `flags`            | **OPTIONAL**                              | Array (Enum)   | List of flags supported by the endpoint as outlined in [Operation Flags](#operation-flags) |
+| `responseVersions` | **REQUIRED**                              | Array (String) | List of Response Versions supported by the endpoint for the specific operation.            |
+| `requestVersions`  | **OPTIONAL**                              | Array (String) | List of Request Versions supported by the endpoint for the specific operation              |
 
 ### Operation Flags
 
