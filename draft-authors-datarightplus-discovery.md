@@ -131,7 +131,7 @@ The following is a non-normative example of a DataRight+ Discovery document:
 
 # Provider
 
-The Provider **SHALL** make available at the base uri advertised by the Ecosystem Authority for the Provider Brand `publicBaseUri` attribute, as described further in [@!DATARIGHTPLUS-REDOCLY-ID2] the following endpoint:
+The Provider **SHALL** make available at the base uri advertised by the Ecosystem Authority for the Provider Brand `publicBaseUri` attribute, as described further in [@!DATARIGHTPLUS-REDOCLY] the following endpoint:
 
 | Resource Server Endpoint                     | Valid `x-max-v` |
 |----------------------------------------------|-----------------|
@@ -166,6 +166,6 @@ For the `cdr` scheme, the `baseUri` value is intended to be provided by the Ecos
 
 <reference anchor="DATARIGHTPLUS-ROSETTA" target="https://datarightplus.github.io/datarightplus-rosetta/draft-authors-datarightplus-rosetta.html"> <front><title>DataRight+ Rosetta Stone</title><author initials="S." surname="Low" fullname="Stuart Low"><organization>Biza.io</organization></author></front> </reference>
 
-<reference anchor="DATARIGHTPLUS-REDOCLY-ID2" target="https://datarightplus.github.io/datarightplus-redocly/?v=ID2"> <front><title>DataRight+: Redocly (ID2)</title><author initials="S." surname="Low" fullname="Stuart Low"><organization>Biza.io</organization></author><author initials="B." surname="Kolera" fullname="Ben Kolera"><organization>Biza.io</organization></author>
+<reference anchor="DATARIGHTPLUS-REDOCLY" target="https://datarightplus.github.io/datarightplus-redocly"> <front><title>DataRight+: Redocly</title><author initials="S." surname="Low" fullname="Stuart Low"><organization>Biza.io</organization></author><author initials="B." surname="Kolera" fullname="Ben Kolera"><organization>Biza.io</organization></author>
 <author initials="W." surname="Cai" fullname="Wei Cai"><organization>Biza.io</organization></author></front> </reference>
 
