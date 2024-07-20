@@ -229,7 +229,7 @@ Table of Contents
 
    The Provider SHALL make available at the base uri advertised by the
    Ecosystem Authority for the Provider Brand publicBaseUri attribute,
-   as described further in [DATARIGHTPLUS-REDOCLY-ID2] the following
+   as described further in [DATARIGHTPLUS-REDOCLY] the following
    endpoint:
 
       +============================================+===============+
@@ -275,10 +275,9 @@ Table of Contents
               (CDS)", <https://consumerdatastandardsaustralia.github.io/
               standards>.
 
-   [DATARIGHTPLUS-REDOCLY-ID2]
-              Low, S., Kolera, B., and W. Cai, "DataRight+: Redocly
-              (ID2)", <https://datarightplus.github.io/datarightplus-
-              redocly/?v=ID2>.
+   [DATARIGHTPLUS-REDOCLY]
+              Low, S., Kolera, B., and W. Cai, "DataRight+: Redocly",
+              <https://datarightplus.github.io/datarightplus-redocly>.
 
    [DATARIGHTPLUS-ROSETTA]
               Low, S., "DataRight+ Rosetta Stone",
