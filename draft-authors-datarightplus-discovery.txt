@@ -1,0 +1,307 @@
+
+
+
+
+datarightplus                                                     S. Low
+Internet-Draft                                                   Biza.io
+Intended status: Experimental                               20 July 2024
+Expires: 21 January 2025
+
+
+                         DataRight+: Discovery
+              draft-authors-datarightplus-discovery-latest
+
+Abstract
+
+   This specification outlines the technical requirements related to the
+   delivery of the DataRight+ Discovery Document.
+
+Notational Conventions
+
+   The keywords "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD
+   NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be
+   interpreted as described in [RFC2119].
+
+Status of This Memo
+
+   This Internet-Draft is submitted in full conformance with the
+   provisions of BCP 78 and BCP 79.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF).  Note that other groups may also distribute
+   working documents as Internet-Drafts.  The list of current Internet-
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+   This Internet-Draft will expire on 21 January 2025.
+
+Copyright Notice
+
+   Copyright (c) 2024 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents (https://trustee.ietf.org/
+   license-info) in effect on the date of publication of this document.
+   Please review these documents carefully, as they describe your rights
+   and restrictions with respect to this document.
+
+Table of Contents
+
+   1.  Scope
+   2.  Terms & Definitions
+   3.  DataRight+ Discovery Metadata
+     3.1.  Scheme Metadata
+       3.1.1.  Operation Metadata
+       3.1.2.  Operation Flags
+     3.2.  Non-Normative Example
+   4.  Provider
+     4.1.  Maximum Version Support
+   5.  Initiator
+   6.  Implementation Considerations
+   7.  Normative References
+   Author's Address
+
+1.  Scope
+
+   The scope of this specification is focused on describing a discovery
+   document for participants to identify supported functionality at a
+   specific Provider supplied resource server.
+
+2.  Terms & Definitions
+
+   This specification uses the terms "Provider" and "Initiator" as
+   defined by [DATARIGHTPLUS-ROSETTA].
+
+3.  DataRight+ Discovery Metadata
+
+   DataRight+ compatible Providers have metadata containing
+   configuration related to the additional services they provide.  These
+   DataRight Provider Metadata values are used by participating
+   Initiators.
+
+   +===========+=============+========+===============================+
+   | Attribute | Requirement | JSON   | Description                   |
+   | Name      |             | Type   |                               |
+   +===========+=============+========+===============================+
+   | version   | REQUIRED    | String | The discovery document        |
+   |           |             |        | version.  Currently only V1   |
+   |           |             |        | is supported.                 |
+   +-----------+-------------+--------+-------------------------------+
+   | scheme    | REQUIRED    | Object | Per scheme breakdown of       |
+   |           |             |        | support as outlined in Scheme |
+   |           |             |        | Metadata (#scheme-metadata)   |
+   +-----------+-------------+--------+-------------------------------+
+
+                                 Table 1
+
+3.1.  Scheme Metadata
+
+   Each scheme represents the key value of the metadata.  The currently
+   supported schemes are as follows:
+
+   1.  cds: The operations as outlined in Section 3.2 of
+       [PROFILE-AU-CDR]
+   2.  dio: The operations as outlined in Section 3.2 of
+       [PROFILE-AU-DIO]
+
+   For each participating scheme an JSON object is used incorporating
+   the following fields:
+
+   +===========+=============+========+================================+
+   | Attribute | Requirement | JSON   | Description                    |
+   | Name      |             | Type   |                                |
+   +===========+=============+========+================================+
+   | endpoint  | REQUIRED    | Object | An object containing a         |
+   |           |             |        | per operationId key and        |
+   |           |             |        | breakdown as outlined          |
+   |           |             |        | Operation Metadata             |
+   |           |             |        | (#operation-metadata)          |
+   +-----------+-------------+--------+--------------------------------+
+
+                                  Table 2
+
+3.1.1.  Operation Metadata
+
+   For each scheme a set of supported endpoints is described whereby the
+   key is the OpenAPI 3 operationId and the value is an object
+   containing the following fields:
+
+   +==================+=============+==========+======================+
+   | Attribute Name   | Requirement | JSON     | Description          |
+   |                  |             | Type     |                      |
+   +==================+=============+==========+======================+
+   | baseUri          | RECOMMENDED | String   | The Base URI to use  |
+   |                  |             | (URI)    | for this endpoint,   |
+   |                  |             |          | REQUIRED for all     |
+   |                  |             |          | schemes except cds   |
+   +------------------+-------------+----------+----------------------+
+   | flags            | OPTIONAL    | Array    | List of flags        |
+   |                  |             | (Enum)   | supported by the     |
+   |                  |             |          | endpoint as outlined |
+   |                  |             |          | in Operation Flags   |
+   |                  |             |          | (#operation-flags)   |
+   +------------------+-------------+----------+----------------------+
+   | responseVersions | REQUIRED    | Array    | List of Response     |
+   |                  |             | (String) | Versions supported   |
+   |                  |             |          | by the endpoint for  |
+   |                  |             |          | the specific         |
+   |                  |             |          | operation.           |
+   +------------------+-------------+----------+----------------------+
+   | requestVersions  | OPTIONAL    | Array    | List of Request      |
+   |                  |             | (String) | Versions supported   |
+   |                  |             |          | by the endpoint for  |
+   |                  |             |          | the specific         |
+   |                  |             |          | operation            |
+   +------------------+-------------+----------+----------------------+
+
+                                 Table 3
+
+3.1.2.  Operation Flags
+
+   Each operation may have additional flags to indicate certain support
+   for non-payload related capability.  The list of supported flags is
+   as follows:
+
+   +=========================+=============+===========================+
+   | Flag                    | Requirement | Description               |
+   +=========================+=============+===========================+
+   | SUPPORTS_CDS_VERSIONING | OPTIONAL    | Supports the header       |
+   |                         |             | based version             |
+   |                         |             | negotiation as            |
+   |                         |             | specified within [CDS]    |
+   +-------------------------+-------------+---------------------------+
+
+                                  Table 4
+
+3.2.  Non-Normative Example
+
+   The following is a non-normative example of a DataRight+ Discovery
+   document:
+
+   {
+     "version": "V1",
+     "scheme": {
+       "cds": {
+         "endpoint": {
+           "getBankingAccountDetail": {
+             "flags": [
+               "SUPPORTS_CDS_VERSIONING"
+             ],
+             "responseVersions": [
+               "V2"
+             ]
+           }
+       },
+       "dio": {
+         "endpoint": {
+           "getBankingTransactionDetailListStatus": {
+             "baseUri": "https://secure-api.acme.bank/dio-au/v1",
+             "responseVersions": [
+               "V1"
+             ]
+           },
+           "requestBankingTransactionDetailList": {
+             "baseUri": "https://secure-api.acme.bank/dio-au/v1",
+             "responseVersions": [
+               "V1"
+             ],
+             "requestVersions": [
+               "V1"
+             ]
+           },
+           "retrieveBankingTransactionDetailList": {
+             "baseUri": "https://secure-api.acme.bank/dio-au/v1",
+             "responseVersions": [
+               "V1"
+             ]
+           }
+         }
+       }
+     }
+   }
+
+4.  Provider
+
+   The Provider SHALL make available at the base uri advertised by the
+   Ecosystem Authority for the Provider Brand publicBaseUri attribute,
+   as described further in [DATARIGHTPLUS-REDOCLY-ID2] the following
+   endpoint:
+
+      +============================================+===============+
+      | Resource Server Endpoint                   | Valid x-max-v |
+      +============================================+===============+
+      | GET /discovery/datarightplus-configuration | 1             |
+      +--------------------------------------------+---------------+
+
+                                 Table 5
+
+4.1.  Maximum Version Support
+
+   In order to provide a progressive update mechanism of the metadata
+   itself the Provider:
+
+   1.  SHALL accept a x-max-v request header value and use it to provide
+       DataRight+ Discovery Metadata (#dataright-discovery-metadata)
+       equal to or less than the version specified in version
+   2.  MAY include in the response an x-v header with the same value as
+       the version attribute contained within the response payload
+
+5.  Initiator
+
+   The Initiator resource server client SHALL:
+
+   1.  Perform GET request to the prescribed endpoint location (i.e.
+       <publicBaseUri>/discovery/datarightplus-configuration) and;
+   2.  Include the x-max-v header describing the newest Initiator
+       supported version of the DataRight+ Discovery Metadata
+       (#dataright-discovery-metadata) and;
+   3.  Parse the response in accordance with DataRight+ Discovery
+       Metadata (#dataright-discovery-metadata)
+
+6.  Implementation Considerations
+
+   For the cdr scheme, the baseUri value is intended to be provided by
+   the Ecosystem Authority.  In this case the baseUri, if specified,
+   MUST match the relevant value supplied by the Ecosystem Authority.
+
+7.  Normative References
+
+   [CDS]      Data Standards Body (Treasury), "Consumer Data Standards
+              (CDS)", <https://consumerdatastandardsaustralia.github.io/
+              standards>.
+
+   [DATARIGHTPLUS-REDOCLY-ID2]
+              Low, S., Kolera, B., and W. Cai, "DataRight+: Redocly
+              (ID2)", <https://datarightplus.github.io/datarightplus-
+              redocly/?v=ID2>.
+
+   [DATARIGHTPLUS-ROSETTA]
+              Low, S., "DataRight+ Rosetta Stone",
+              <https://datarightplus.github.io/datarightplus-rosetta/
+              draft-authors-datarightplus-rosetta.html>.
+
+   [PROFILE-AU-CDR]
+              Low, S., "DataRight+: Australian CDR Profile",
+              <https://datarightplus.github.io/datarightplus-cdr-
+              profile/draft-authors-datarightplus-cdr-profile.html>.
+
+   [PROFILE-AU-DIO]
+              Low, S., "DataRight+: Australian DataRight+ Profile",
+              <https://datarightplus.github.io/datarightplus-cdr-
+              profile/draft-authors-datarightplus-dio-profile.html>.
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/info/rfc2119>.
+
+Author's Address
+
+   Stuart Low
+   Biza.io
+   Email: stuart@biza.io
