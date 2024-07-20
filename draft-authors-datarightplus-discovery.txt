@@ -135,10 +135,10 @@ Table of Contents
    | Attribute Name   | Requirement | JSON     | Description          |
    |                  |             | Type     |                      |
    +==================+=============+==========+======================+
-   | baseUri          | RECOMMENDED | String   | The Base URI to use  |
-   |                  |             | (URI)    | for this endpoint,   |
-   |                  |             |          | REQUIRED for all     |
-   |                  |             |          | schemes except cds   |
+   | baseUri          | REQUIRED    | String   | The Base URI to use  |
+   |                  | for all     | (URI)    | for this endpoint.   |
+   |                  | schemes     |          |                      |
+   |                  | except cds  |          |                      |
    +------------------+-------------+----------+----------------------+
    | flags            | OPTIONAL    | Array    | List of flags        |
    |                  |             | (Enum)   | supported by the     |
