@@ -170,7 +170,7 @@ For the `cdr` scheme, the `baseUri` value is intended to be provided by the Ecos
 
 <reference anchor="PROFILE-AU-CDR" target="https://datarightplus.github.io/datarightplus-cdr-profile/draft-authors-datarightplus-cdr-profile.html"> <front><title>DataRight+: Australian CDR Profile</title><author initials="S." surname="Low" fullname="Stuart Low"><organization>Biza.io</organization></author></front> </reference>
 
-<reference anchor="PROFILE-AU-DIO" target="https://datarightplus.github.io/datarightplus-cdr-profile/draft-authors-datarightplus-dio-profile.html"> <front><title>DataRight+: Australian DataRight+ Profile</title><author initials="S." surname="Low" fullname="Stuart Low"><organization>Biza.io</organization></author></front> </reference>
+<reference anchor="PROFILE-AU-DIO" target="https://datarightplus.github.io/datarightplus-dio-profile/draft-authors-datarightplus-dio-profile.html"> <front><title>DataRight+: Australian DataRight+ Profile</title><author initials="S." surname="Low" fullname="Stuart Low"><organization>Biza.io</organization></author></front> </reference>
 
 <reference anchor="DATARIGHTPLUS-ROSETTA" target="https://datarightplus.github.io/datarightplus-rosetta/draft-authors-datarightplus-rosetta.html"> <front><title>DataRight+ Rosetta Stone</title><author initials="S." surname="Low" fullname="Stuart Low"><organization>Biza.io</organization></author></front> </reference>
 
