@@ -291,7 +291,7 @@ Table of Contents
 
    [PROFILE-AU-DIO]
               Low, S., "DataRight+: Australian DataRight+ Profile",
-              <https://datarightplus.github.io/datarightplus-cdr-
+              <https://datarightplus.github.io/datarightplus-dio-
               profile/draft-authors-datarightplus-dio-profile.html>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
