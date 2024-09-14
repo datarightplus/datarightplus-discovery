@@ -5,7 +5,7 @@
 datarightplus                                                     S. Low
 Internet-Draft                                                 B. Kolera
 Intended status: Experimental                                    Biza.io
-Expires: 22 January 2025                                    21 July 2024
+Expires: 18 March 2025                                 14 September 2024
 
 
                          DataRight+: Discovery
@@ -37,7 +37,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 22 January 2025.
+   This Internet-Draft will expire on 18 March 2025.
 
 Copyright Notice
 
@@ -178,6 +178,18 @@ Table of Contents
 
                                   Table 4
 
+3.1.2.1.  SUPPORTS_CDS_VERSIONING Flag
+
+   This flag indicates that the endpoint uses the versioning approach
+   first specified in [CDS].
+
+   For endpoints utilising this flag the responseVersions field is
+   specified as the letter V followed by the integer matching the x-v
+   value for the endpoint (for example V3 for x-v value of 3).
+
+   If multiple x-v versions are supported these can be specified in the
+   same way within the responseVersions array, for example ["V1", "V2"].
+
 3.2.  Non-Normative Example
 
    The following is a non-normative example of a DataRight+ Discovery
@@ -196,29 +208,30 @@ Table of Contents
                "V2"
              ]
            }
-       },
-       "dio": {
-         "endpoint": {
-           "getBankingTransactionDetailListStatus": {
-             "baseUri": "https://secure-api.acme.bank/dio-au/v1",
-             "responseVersions": [
-               "V1"
-             ]
-           },
-           "requestBankingTransactionDetailList": {
-             "baseUri": "https://secure-api.acme.bank/dio-au/v1",
-             "responseVersions": [
-               "V1"
-             ],
-             "requestVersions": [
-               "V1"
-             ]
-           },
-           "retrieveBankingTransactionDetailList": {
-             "baseUri": "https://secure-api.acme.bank/dio-au/v1",
-             "responseVersions": [
-               "V1"
-             ]
+         },
+         "dio": {
+           "endpoint": {
+             "getBankingTransactionDetailListStatus": {
+               "baseUri": "https://secure-api.acme.bank/dio-au/v1",
+               "responseVersions": [
+                 "V1"
+               ]
+             },
+             "requestBankingTransactionDetailList": {
+               "baseUri": "https://secure-api.acme.bank/dio-au/v1",
+               "responseVersions": [
+                 "V1"
+               ],
+               "requestVersions": [
+                 "V1"
+               ]
+             },
+             "retrieveBankingTransactionDetailList": {
+               "baseUri": "https://secure-api.acme.bank/dio-au/v1",
+               "responseVersions": [
+                 "V1"
+               ]
+             }
            }
          }
        }
@@ -235,7 +248,7 @@ Table of Contents
       +============================================+===============+
       | Resource Server Endpoint                   | Valid x-max-v |
       +============================================+===============+
-      | GET /discovery/datarightplus-configuration | 1             |
+      | GET /discovery/datarightplus-configuration | V1            |
       +--------------------------------------------+---------------+
 
                                  Table 5
@@ -245,11 +258,13 @@ Table of Contents
    In order to provide a progressive update mechanism of the metadata
    itself the Provider:
 
-   1.  SHALL accept a x-max-v request header value and use it to provide
-       DataRight+ Discovery Metadata (#dataright-discovery-metadata)
-       equal to or less than the version specified in version
-   2.  MAY include in the response an x-v header with the same value as
-       the version attribute contained within the response payload
+   1.  SHALL accept a x-max-v request header value containing the letter
+       V and an integer (eg.  V1) and;
+   2.  SHALL use the x-max-v value to provide DataRight+ Discovery
+       Metadata (#dataright-discovery-metadata) equal to or less than
+       the integer contained in version;
+   3.  MAY include in the response an x-v header with the same value as
+       the version attribute contained within the response payload;
 
 5.  Initiator
 
@@ -261,11 +276,11 @@ Table of Contents
        supported version of the DataRight+ Discovery Metadata
        (#dataright-discovery-metadata) and;
    3.  Parse the response in accordance with DataRight+ Discovery
-       Metadata (#dataright-discovery-metadata)
+       Metadata (#dataright-discovery-metadata);
 
 6.  Implementation Considerations
 
-   For the cdr scheme, the baseUri value is intended to be provided by
+   For the cds scheme, the baseUri value is intended to be provided by
    the Ecosystem Authority.  In this case the baseUri, if specified,
    MUST match the relevant value supplied by the Ecosystem Authority.
 
