@@ -89,6 +89,13 @@ Each operation may have additional flags to indicate certain support for non-pay
 |---------------------------|--------------|---------------------------------------------------------------------------|
 | `SUPPORTS_CDS_VERSIONING` | **OPTIONAL** | Supports the header based version negotiation as specified within [@!CDS] |
 
+#### SUPPORTS_CDS_VERSIONING Flag
+
+This flag indicates that the endpoint uses the versioning approach first specified in [@!CDS].
+
+For endpoints utilising this flag the `responseVersions` field is specified as the letter `V` followed by the integer matching the `x-v` value for the endpoint (for example `V3` for `x-v` value of 3). If multiple `x-v` versions are supported these can be specified in the same way within the `responseVersions` array, for example `["V1", "V2"]`.
+
+
 ## Non-Normative Example
 
 The following is a non-normative example of a DataRight+ Discovery document:
@@ -107,29 +114,30 @@ The following is a non-normative example of a DataRight+ Discovery document:
             "V2"
           ]
         }
-    },
-    "dio": {
-      "endpoint": {
-        "getBankingTransactionDetailListStatus": {
-          "baseUri": "https://secure-api.acme.bank/dio-au/v1",
-          "responseVersions": [
-            "V1"
-          ]
-        },
-        "requestBankingTransactionDetailList": {
-          "baseUri": "https://secure-api.acme.bank/dio-au/v1",
-          "responseVersions": [
-            "V1"
-          ],
-          "requestVersions": [
-            "V1"
-          ]
-        },
-        "retrieveBankingTransactionDetailList": {
-          "baseUri": "https://secure-api.acme.bank/dio-au/v1",
-          "responseVersions": [
-            "V1"
-          ]
+      },
+      "dio": {
+        "endpoint": {
+          "getBankingTransactionDetailListStatus": {
+            "baseUri": "https://secure-api.acme.bank/dio-au/v1",
+            "responseVersions": [
+              "V1"
+            ]
+          },
+          "requestBankingTransactionDetailList": {
+            "baseUri": "https://secure-api.acme.bank/dio-au/v1",
+            "responseVersions": [
+              "V1"
+            ],
+            "requestVersions": [
+              "V1"
+            ]
+          },
+          "retrieveBankingTransactionDetailList": {
+            "baseUri": "https://secure-api.acme.bank/dio-au/v1",
+            "responseVersions": [
+              "V1"
+            ]
+          }
         }
       }
     }
@@ -149,8 +157,9 @@ The Provider **SHALL** make available at the base uri advertised by the Ecosyste
 
 In order to provide a progressive update mechanism of the metadata itself the Provider:
 
-1. **SHALL** accept a `x-max-v` request header value and use it to provide [DataRight+ Discovery Metadata](#dataright-discovery-metadata) equal to or less than the version specified in `version`
-2. **MAY** include in the response an `x-v` header with the same value as the `version` attribute contained within the response payload
+1. **SHALL** accept a `x-max-v` request header value containing the letter `V` and an integer (eg. `V1`) and;
+2. **SHALL** use the `x-max-v` value to provide [DataRight+ Discovery Metadata](#dataright-discovery-metadata) equal to or less than the integer contained in `version`;
+3. **MAY** include in the response an `x-v` header with the same value as the `version` attribute contained within the response payload;
 
 # Initiator
 
@@ -158,11 +167,11 @@ The Initiator resource server client **SHALL**:
 
 1. Perform `GET` request to the prescribed endpoint location (i.e. `<publicBaseUri>/discovery/datarightplus-configuration`) and;
 2. Include the `x-max-v` header describing the newest Initiator supported version of the [DataRight+ Discovery Metadata](#dataright-discovery-metadata) and;
-3. Parse the response in accordance with [DataRight+ Discovery Metadata](#dataright-discovery-metadata)
+3. Parse the response in accordance with [DataRight+ Discovery Metadata](#dataright-discovery-metadata);
 
 # Implementation Considerations
 
-For the `cdr` scheme, the `baseUri` value is intended to be provided by the Ecosystem Authority. In this case the `baseUri`, if specified, **MUST** match the relevant value supplied by the Ecosystem Authority.
+For the `cds` scheme, the `baseUri` value is intended to be provided by the Ecosystem Authority. In this case the `baseUri`, if specified, **MUST** match the relevant value supplied by the Ecosystem Authority.
 
 {backmatter}
 
