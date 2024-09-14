@@ -93,8 +93,9 @@ Each operation may have additional flags to indicate certain support for non-pay
 
 This flag indicates that the endpoint uses the versioning approach first specified in [@!CDS].
 
-For endpoints utilising this flag the `responseVersions` field is specified as the letter `V` followed by the integer matching the `x-v` value for the endpoint (for example `V3` for `x-v` value of 3). If multiple `x-v` versions are supported these can be specified in the same way within the `responseVersions` array, for example `["V1", "V2"]`.
+For endpoints utilising this flag the `responseVersions` field is specified as the letter `V` followed by the integer matching the `x-v` value for the endpoint (for example `V3` for `x-v` value of `3`).
 
+If multiple `x-v` versions are supported these can be specified in the same way within the `responseVersions` array, for example `["V1", "V2"]`.
 
 ## Non-Normative Example
 
@@ -151,7 +152,7 @@ The Provider **SHALL** make available at the base uri advertised by the Ecosyste
 
 | Resource Server Endpoint                     | Valid `x-max-v` |
 |----------------------------------------------|-----------------|
-| `GET /discovery/datarightplus-configuration` | `1`             |
+| `GET /discovery/datarightplus-configuration` | `V1`            |
 
 ## Maximum Version Support
 
