@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-09-12T00:18:09.877919+00:00",
+  "timestamp": "2024-09-15T00:20:21.127590+00:00",
   "repo": "datarightplus/datarightplus-discovery",
   "labels": [
     {
@@ -50,5 +50,38 @@
     }
   ],
   "issues": [],
-  "pulls": []
+  "pulls": [
+    {
+      "number": 1,
+      "id": "PR_kwDOMWDB7c57f0Jf",
+      "title": "Provide cds versioning clarity",
+      "url": "https://github.com/datarightplus/datarightplus-discovery/pull/1",
+      "state": "MERGED",
+      "author": "perlboy",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [
+        "perlboy"
+      ],
+      "labels": [
+        "bug"
+      ],
+      "body": "Specifically outlines CDS Versioning approach for `x-v`.",
+      "createdAt": "2024-09-14T05:34:15Z",
+      "updatedAt": "2024-09-14T05:34:30Z",
+      "baseRepository": "datarightplus/datarightplus-discovery",
+      "baseRefName": "main",
+      "baseRefOid": "167a12e54e30c31cec098be2e5d443b9307086a2",
+      "headRepository": "datarightplus/datarightplus-discovery",
+      "headRefName": "provide-cds-versioning-clarity",
+      "headRefOid": "fad27e7bbdadca75c4f5eda940250daae2d3ab5e",
+      "closedAt": "2024-09-14T05:34:30Z",
+      "mergedAt": "2024-09-14T05:34:30Z",
+      "mergedBy": "perlboy",
+      "mergeCommit": {
+        "oid": "3d6446e3970e375eeabaed1b74ff4793bb5f5118"
+      },
+      "comments": [],
+      "reviews": []
+    }
+  ]
 }
