@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-01-30T00:18:31.291670+00:00",
+  "timestamp": "2025-03-04T00:20:07.392913+00:00",
   "repo": "datarightplus/datarightplus-discovery",
   "labels": [
     {
@@ -79,6 +79,34 @@
       "mergedBy": "perlboy",
       "mergeCommit": {
         "oid": "3d6446e3970e375eeabaed1b74ff4793bb5f5118"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 2,
+      "id": "PR_kwDOMWDB7c6NEAJw",
+      "title": "Upgrade to latest github workflow",
+      "url": "https://github.com/datarightplus/datarightplus-discovery/pull/2",
+      "state": "MERGED",
+      "author": "perlboy",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-03-02T12:32:48Z",
+      "updatedAt": "2025-03-02T12:34:50Z",
+      "baseRepository": "datarightplus/datarightplus-discovery",
+      "baseRefName": "main",
+      "baseRefOid": "3d6446e3970e375eeabaed1b74ff4793bb5f5118",
+      "headRepository": "datarightplus/datarightplus-discovery",
+      "headRefName": "upgrade-github-workflow",
+      "headRefOid": "63ddd3c0f4bc0fc1cfd9a76a7b227d75ccdb75ee",
+      "closedAt": "2025-03-02T12:34:50Z",
+      "mergedAt": "2025-03-02T12:34:50Z",
+      "mergedBy": "perlboy",
+      "mergeCommit": {
+        "oid": "0a5eaa1c38434cab5edf634bd36556a44afb11d9"
       },
       "comments": [],
       "reviews": []
